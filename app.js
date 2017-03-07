@@ -1,6 +1,8 @@
 const express = require("express");
 const nunjucks = require("nunjucks");
 const routes = require("./routes");
+const bodyParser = require('body-parser')
+
 const app = express();
 
 app.engine('html', nunjucks.render);
@@ -8,8 +10,19 @@ app.set('view engine', 'html');
 nunjucks.configure('views', {
     noCache: true
 });
+app.use(bodyParser.urlencoded({
+    extended: false
+}))
+
+app.use(bodyParser.json())
 
 app.use("/", routes);
+
+app.use("/", function(req, res) {
+    res.setHeader('Content-Type', 'text/plain')
+    res.write('you posted:\n')
+    res.end(JSON.stringify(req.body, null, 2))
+})
 
 app.use("/special/*", function(req, res, next) {
     console.log("You reached the special area.")
