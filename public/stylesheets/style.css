@@ -25,6 +25,16 @@ body {
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
 
+li {
+  list-style: none;
+}
+
+.avatar {
+  height: 50px;
+  width: 50px;
+  display: inline-block;
+}
+
 #wrap > .container {
   padding: 60px 15px 0;
 }

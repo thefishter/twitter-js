@@ -1,12 +1,25 @@
 const _ = require('lodash');
 
 var data = [];
+var ids = [];
+
+
 
 function add(name, content) {
+    var newId = function generateID() {
+        do {
+            id = Math.floor(Math.random() * 100) + 1;
+        } while (ids.indexOf(id) > -1)
+        ids.push(id);
+        return id;
+    }
+
     data.push({
         name: name,
-        content: content
+        content: content,
+        id: newId()
     });
+    console.log(id);
 }
 
 function list() {

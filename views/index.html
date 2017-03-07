@@ -12,7 +12,10 @@
 
         <!-- display tweets here -->
         {% for tweet in tweets %}
+        <img class="avatar" src="https://s3.amazonaws.com/bloc-global-assets/almanac-assets/bootcamps/logos/000/002/671/original/grace-hopper-academy.jpg?1467187331" />
+        <li><strong><a href="/users/{{tweet.name}}">{{tweet.name}}</a></strong></li>
         <li>{{tweet.content}}</li>
+        <p><a href="#">Re-Tweet</a></p>
         {% endfor %}
 
     </div>
