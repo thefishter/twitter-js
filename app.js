@@ -1,7 +1,8 @@
 const express = require("express");
 const nunjucks = require("nunjucks");
 const routes = require("./routes");
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+const socketio = require('socket.io');
 
 const app = express();
 
@@ -10,13 +11,19 @@ app.set('view engine', 'html');
 nunjucks.configure('views', {
     noCache: true
 });
+
 app.use(bodyParser.urlencoded({
     extended: false
 }))
-
 app.use(bodyParser.json())
 
-app.use("/", routes);
+var server = app.listen(3000, function() {
+    console.log("server listening");
+})
+
+var io = socketio.listen(server);
+
+app.use("/", routes(io));
 
 app.use("/", function(req, res) {
     res.setHeader('Content-Type', 'text/plain')
@@ -75,12 +82,6 @@ app.use("/:route", function(req, res, next) {
 //         name3: "AnotherName"
 //     }
 // });
-
-
-app.listen(3000, function() {
-    console.log("server listening");
-})
-
 
 
 // nunjucks.configure('views/index.html', {
