@@ -1,5 +1,6 @@
 const express = require("express");
 const nunjucks = require("nunjucks");
+const routes = require("./routes");
 const app = express();
 
 app.engine('html', nunjucks.render);
@@ -7,6 +8,8 @@ app.set('view engine', 'html');
 nunjucks.configure('views', {
     noCache: true
 });
+
+app.use("/", routes);
 
 app.use("/special/*", function(req, res, next) {
     console.log("You reached the special area.")
@@ -18,18 +21,18 @@ app.use("/:route", function(req, res, next) {
     next();
 })
 
-app.get("/", function(req, res) {
-    res.send("Hello there!");
-})
-
-app.get("/news", function(req, res) {
-    res.send("I have good news and bad news...");
-})
-
-app.get("/test", function(req, res) {
-    const people = [{name: 'Full'}, {name: 'Stacker'}, {name: 'Son'}];
-    res.render( 'index', {title: 'Hall of Fame', people: people} );
-})
+// app.get("/", function(req, res) {
+//     res.send("Hello there!");
+// })
+//
+// app.get("/news", function(req, res) {
+//     res.send("I have good news and bad news...");
+// })
+//
+// app.get("/test", function(req, res) {
+//     const people = [{name: 'Full'}, {name: 'Stacker'}, {name: 'Son'}];
+//     res.render( 'index', {title: 'Hall of Fame', people: people} );
+// })
 
 // var locals = {
 //     title: 'An Example',
