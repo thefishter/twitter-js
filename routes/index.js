@@ -47,7 +47,6 @@ module.exports = function(io) {
         var text = req.body.text;
         tweetBank.add(name, text);
         io.sockets.emit('newTweet', { name: name, tweet: text });
-        // res.redirect('/');
     });
 
 
